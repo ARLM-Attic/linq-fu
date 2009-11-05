@@ -14,15 +14,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libraries", "Exter
 		External Libraries\nunit.framework.xml = External Libraries\nunit.framework.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqFu.Tests", "LinqFu.Tests\LinqFu.Tests.csproj", "{88E59EC1-39C7-4302-9989-0E23134526F9}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
+		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = LinqFu\\LinqFu.csproj
 		SccProjectName1 = LinqFu
 		SccLocalPath1 = LinqFu
+		SccProjectUniqueName2 = LinqFu.Tests\\LinqFu.Tests.csproj
+		SccProjectName2 = LinqFu.Tests
+		SccLocalPath2 = LinqFu.Tests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +38,10 @@ Global
 		{3A94DE28-15D1-417E-844C-08A337EB3BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A94DE28-15D1-417E-844C-08A337EB3BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A94DE28-15D1-417E-844C-08A337EB3BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E59EC1-39C7-4302-9989-0E23134526F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E59EC1-39C7-4302-9989-0E23134526F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E59EC1-39C7-4302-9989-0E23134526F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E59EC1-39C7-4302-9989-0E23134526F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
