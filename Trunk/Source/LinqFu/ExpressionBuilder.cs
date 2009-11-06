@@ -18,7 +18,6 @@ namespace LinqFu
         /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
         public static Expression<Func<TTheta, Boolean>> Convert<TPrime, TTheta>(Expression<Func<TPrime, Boolean>> expression) // where TTheta : TPrime
         {
-            expression.
             return null;
         }
     }
