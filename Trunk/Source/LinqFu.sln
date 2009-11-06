@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libraries", "External Libraries", "{12125145-81C0-4150-B009-6AE5B3BCC79E}"
 	ProjectSection(SolutionItems) = preProject
+		External Libraries\ExpressionTreeVisualizer.dll = External Libraries\ExpressionTreeVisualizer.dll
+		External Libraries\ExpressionTreeVisualizer.pdb = External Libraries\ExpressionTreeVisualizer.pdb
 		External Libraries\nunit.framework.dll = External Libraries\nunit.framework.dll
 		External Libraries\nunit.framework.xml = External Libraries\nunit.framework.xml
 	EndProjectSection
