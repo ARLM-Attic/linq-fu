@@ -1,0 +1,702 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mongoose.Reflection</name>
+    </assembly>
+    <members>
+        <member name="T:Mongoose.Reflection.ReflectionResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.MemberInfoNotDeclaredOnType">
+            <summary>
+              Looks up a localized string similar to Member &apos;{0}&apos; is not defined on or by a supertype of type &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.PropertyNotFoundOnType">
+            <summary>
+              Looks up a localized string similar to Type &apos;{0}&apos; does not have a property named &apos;{1}&apos; defined..
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.SuppliedExpressionNotMemberType">
+            <summary>
+              Looks up a localized string similar to The supplied lambda was an expressionType of &apos;{0}&apos;. This is invalid for reflection based expressions for field and property members..
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.SuppliedExpressionNotMethodType">
+            <summary>
+              Looks up a localized string similar to The supplied lambda was an expressionType of &apos;{0}&apos;. This is invalid for reflection based expressions for method members..
+            </summary>
+        </member>
+        <member name="P:Mongoose.Reflection.ReflectionResources.SuppliedTypeIsNotDelegate">
+            <summary>
+              Looks up a localized string similar to Type &apos;{0}&apos; is not a delegate type.
+            </summary>
+        </member>
+        <member name="T:Mongoose.Reflection.Lambda">
+            <summary>
+            C# doesn't allow lambda expressions to be leveraged with extension methods. A helper type to assist this compiler shortcoming. See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extensions affected.
+            </summary>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of(System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``2(System.Linq.Expressions.Expression{System.Action{``0,``1}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+            <typeparam name="TParameter2">The second parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``3(System.Linq.Expressions.Expression{System.Action{``0,``1,``2}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+            <typeparam name="TParameter2">The second parameter type.</typeparam>
+            <typeparam name="TParameter3">The third parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``4(System.Linq.Expressions.Expression{System.Action{``0,``1,``2,``3}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+            <typeparam name="TParameter2">The second parameter type.</typeparam>
+            <typeparam name="TParameter3">The third parameter type.</typeparam>
+            <typeparam name="TParameter4">The fourth parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``3(System.Linq.Expressions.Expression{System.Func{``0,``1,``2}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+            <typeparam name="TParameter2">The second parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``4(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+            <typeparam name="TParameter2">The second parameter type.</typeparam>
+            <typeparam name="TParameter3">The third parameter type.</typeparam>
+        </member>
+        <member name="M:Mongoose.Reflection.Lambda.Of``5(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4}})">
+            <summary>
+            Accepts any <see cref="T:System.Linq.Expressions.LambdaExpression"/> and returns the provided value.
+            </summary>
+            <remarks>See <see cref="T:Mongoose.Reflection.TypeExtensions"/> for specific extension methods to leverage with this.</remarks>
+            <example>
+            <![CDATA[
+            typeof(String).GetProperty(Lambda.Of((String x) => x.Length));
+            
+            typeof(String).GetField(Lambda.Of((String x) => String.Empty));
+            
+            typeof(String).GetMethod(Lambda.Of((Object x) => x.ToString()));
+            ]]>
+            </example>
+            <param name="expression">The expression.</param>
+            <returns>The <paramref name="expression"/> parameter.</returns>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TParameter1">The first parameter type.</typeparam>
+            <typeparam name="TParameter2">The second parameter type.</typeparam>
+            <typeparam name="TParameter3">The third parameter type.</typeparam>
+            <typeparam name="TParameter4">The fourth parameter type.</typeparam>
+        </member>
+        <member name="T:Mongoose.Reflection.TypeExtensions">
+            <summary>
+            Extension methods for the <see cref="T:System.Type"/> class.
+            </summary>
+            <remarks>Really just helper extensions to the corresponding methods on the <see cref="T:Mongoose.Reflection.Reflect"/> utility class.</remarks>
+        </member>
+        <member name="M:Mongoose.Reflection.TypeExtensions.GetEvent(System.Type,System.Delegate)">
+            <summary>Gets all the events able to sunk by the supplied event delegate.</summary>
+            <remarks>Currently this only supports public members (which are therefore visible to any caller).</remarks>
+            <param name="typeToReflect">The <see cref="T:System.Type"/> to reflect events on.</param>
+            <param name="eventToFind">A <see cref="T:System.Delegate"/> to match event signatures.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="typeToReflect"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="eventToFind"/> is <seealso langkeyword="null">null</seealso></para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="eventToFind"/> is not a <see cref="T:System.Delegate"/>.</exception>
+            <returns>The sequence of events defined on <paramref name="typeToReflect"/> that match the supplied delegate.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.TypeExtensions.GetMethod(System.Type,System.Linq.Expressions.LambdaExpression)">
+            <summary>Gets the method represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller.</remarks>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="typeToReflect"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="methodToFind"/> is <seealso langkeyword="null">null</seealso></para>
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="methodToFind"/> does not represent a method invocation.</exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="methodToFind"/> does not access a method declared on <paramref name="typeToReflect"/>.</exception>
+            <param name="typeToReflect">The <see cref="T:System.Type"/> to find the field on.</param>
+            <param name="methodToFind">The expression describing the method.</param>
+            <returns>If found, the <see cref="T:System.Reflection.MethodInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.TypeExtensions.GetProperty(System.Type,System.Linq.Expressions.LambdaExpression)">
+            <summary>Gets the property represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller. Property return overloading is not allowed in the CLR therefore the return type is represented as an Object.</remarks>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="typeToReflect"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="propertyToFind"/> is <seealso langkeyword="null">null</seealso></para>
+            </exception> 
+            <exception cref="T:System.ArgumentException"><paramref name="propertyToFind"/> does not represent a property accessor.</exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="propertyToFind"/> does not access a property declared on <paramref name="typeToReflect"/>.</exception>
+            <param name="typeToReflect">The <see cref="T:System.Type"/> to find the field on.</param>
+            <param name="propertyToFind">The expression describing the property.</param>
+            <returns>If found, the <see cref="T:System.Reflection.PropertyInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.TypeExtensions.GetField(System.Type,System.Linq.Expressions.LambdaExpression)">
+            <summary>Gets the field represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller. As any field type can be represented as an Object type the supplied lambda is defined as returning an Object.</remarks>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="typeToReflect"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="fieldToFind"/> is <seealso langkeyword="null">null</seealso></para>
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="fieldToFind"/> does not represent a field reference.</exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="fieldToFind"/> does not access a field declared on <paramref name="typeToReflect"/>.</exception>
+            <returns>If found, the <see cref="T:System.Reflection.FieldInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+            <param name="typeToReflect">The <see cref="T:System.Type"/> to find the field on.</param>
+            <param name="fieldToFind">The expression describing the field.</param>
+        </member>
+        <member name="T:Mongoose.Reflection.Reflect">
+            <summary>
+            Provides strong-typed reflection of specified types.
+            </summary>
+            <remarks>
+            <para>Each method in this type provides a complimentary feature to the underlying <see cref="T:System.Type"/> methods. 
+            In example, the <see cref="M:Mongoose.Reflection.Reflect.GetMethod(System.Linq.Expressions.LambdaExpression)"/> overloads match up with the functionality of the 
+            <seealso cref="M:System.Type.GetMethod(System.String)">Type.GetMethod()</seealso> overloads.</para>
+            <para>The primary benefits of using lambda expressions for reflection is that your reflection code will be
+            type safe and always current as members change, the compiler will enforce your reflection code.</para>
+            </remarks>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetEvent(System.Type,System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.EventInfo"/> of the first event found on <paramref name="type"/> with a name matching
+            the supplied <paramref name="event"/> value.
+            </summary>
+            <remarks>
+            <para>Will find instance and static events that are public and non public.</para>
+            <para>Event names are matched in a case insensitive culture invariant manner.</para>
+            </remarks>
+            <param name="type">The <see cref="T:System.Type"/> to return the field value from.</param>
+            <param name="event">The name of the event to find</param>
+            <returns>If found, the <see cref="T:System.Reflection.EventInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="type"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="event"/> is <seealso langkeyword="null">null</seealso> or <see cref="F:System.String.Empty"/>.</para>
+            </exception>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetEvent``1(System.Type,``0)">
+            <summary>Gets all the events able to sunk by the supplied event delegate.</summary>
+            <remarks>Currently this only supports public members (which are therefore visible to any caller).</remarks>
+            <typeparam name="TDelegate">The <see cref="T:System.Delegate"/> type to match event signatures by.</typeparam>
+            <param name="typeToReflect">The <see cref="T:System.Type"/> to reflect.</param>
+            <param name="eventToFind">A <see cref="T:System.Delegate"/> of type <typeparamref name="TDelegate"/> to match event signatures.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="typeToReflect"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="eventToFind"/> is <seealso langkeyword="null">null</seealso></para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="eventToFind"/> is not a <see cref="T:System.Delegate"/>.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the AddingNew event from the BindingList type
+            Type typeToReflect = typeof(BindingList<Object>);
+            EventInfo @event = Reflect.GetEvent(typeToReflect, new AddingNewEventHandler((sender, e)=> { })).First();
+            ]]>
+            </code>
+            </example>
+            <returns>The sequence of events defined on <paramref name="typeToReflect"/> that match the supplied delegate.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetEvent``2(``1)">
+            <summary>Gets all the events able to sunk by the supplied event delegate.</summary>
+            <remarks>Currently this only supports public members (which are therefore visible to any caller).</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <typeparam name="TDelegate">The <see cref="T:System.Delegate"/> type to match event signatures by.</typeparam>
+            <param name="eventToFind">A <see cref="T:System.Delegate"/> of type <typeparamref name="TDelegate"/> to match event signatures.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="eventToFind"/> is not a <see cref="T:System.Delegate"/>.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the AddingNew event from the BindingList type
+            EventInfo @event = Reflect.GetEvent<BindingList<Object>>(new AddingNewEventHandler((sender, e)=> { })).First();
+            ]]>
+            </code>
+            </example>
+            <returns>The sequence of events defined on <typeparamref name="TReflectType"/> that match the supplied delegate.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetMethod(System.Linq.Expressions.LambdaExpression)">
+            <summary>Gets the method represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller.</remarks>
+            <param name="methodToFind">The <see cref="T:System.Linq.Expressions.LambdaExpression"/> representing the method to get.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="methodToFind"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="methodToFind"/> does not represent a method invocation.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the ToString() method from the Object type
+            MethodInfo toStringMethod = Reflect.GetMethod((Object x) => x.ToString());
+            
+            //Example on how to get a specific overload of a method from an type; in this example the Guid.CompareTo(Guid) overload.
+            MethodInfo overloadMethod = Reflect.GetMethod((Guid x) => x.CompareTo(Guid.Empty));
+            
+            //Example on how to get a static method from a type
+            MethodInfo staticMethod = Reflect.GetMethod((Guid x) => Guid.NewGuid());
+            ]]>
+            </code>
+            </example>
+            <returns>If found, the <see cref="T:System.Reflection.MethodInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetMethod``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>Gets the method represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller.</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <param name="methodToFind">The <see cref="T:System.Linq.Expressions.Expression`1"/> representing the method to get.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="methodToFind"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="methodToFind"/> does not represent a method invocation.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the ToString() method from the Object type
+            MethodInfo toStringMethod = Reflect.GetMethod<Object>(x => x.ToString());
+            
+            //Example of using alternate syntax
+            MethodInfo altSyntax = Reflect.GetMethod((Object x) => x.ToString());
+            
+            //Example on how to get a specific overload of a method from an type; in this example the Guid.CompareTo(Guid) overload.
+            MethodInfo overloadMethod = Reflect.GetMethod<Guid>(x => x.CompareTo(Guid.Empty));
+            
+            //Example on how to get a static method from a type
+            MethodInfo staticMethod = Reflect.GetMethod<Guid>(x => Guid.NewGuid());
+            ]]>
+            </code>
+            </example>
+            <returns>If found, the <see cref="T:System.Reflection.MethodInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetMethod``2(System.Linq.Expressions.Expression{System.Action{``0,``1}})">
+            <summary>Gets the method represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller.</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <typeparam name="TParameter1">The input parameter of the the method to get.</typeparam>
+            <param name="methodToFind">The <see cref="T:System.Linq.Expressions.Expression`1"/> representing the method to get.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="methodToFind"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="methodToFind"/> does not represent a method invocation.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the IndexOf() method from the String type
+            MethodInfo indexOfMethod = Reflect.GetMethod<String, String>((x, y) => x.IndexOf(y));
+            
+            //Example of using alternate syntax
+            MethodInfo altSyntax = Reflect.GetMethod((String x, String y) => x.IndexOf(y));
+            
+            //Example on how to get a specific overload of a method from an type; in this example the String.IndexOf(String, Int) overload.
+            MethodInfo overloadMethod = Reflect.GetMethod<String, String>((x, y) => x.IndexOf(y, 5));
+            
+            //Example on how to get a static method from a type
+            MethodInfo staticMethod = Reflect.GetMethod<String, String>((x, y) => String.Compare(x, y));
+            ]]>
+            </code>
+            </example>
+            <returns>If found, the <see cref="T:System.Reflection.MethodInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetMethod``3(System.Linq.Expressions.Expression{System.Action{``0,``1,``2}})">
+            <summary>Gets the method represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller.</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <typeparam name="TParameter1">The first input parameter of the the method to get.</typeparam>
+            <typeparam name="TParameter2">The second input parameter of the the method to get.</typeparam>
+            <param name="methodToFind">The <see cref="T:System.Linq.Expressions.Expression`1"/> representing the method to get.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="methodToFind"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="methodToFind"/> does not represent a method invocation.</exception>
+            <returns>If found, the <see cref="T:System.Reflection.MethodInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetMethod``4(System.Linq.Expressions.Expression{System.Action{``0,``1,``2,``3}})">
+            <summary>Gets the method represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller.</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <typeparam name="TParameter1">The first input parameter of the the method to get.</typeparam>
+            <typeparam name="TParameter2">The second input parameter of the the method to get.</typeparam>
+            <typeparam name="TParameter3">The third input parameter of the the method to get.</typeparam>
+            <param name="methodToFind">The <see cref="T:System.Linq.Expressions.Expression`1"/> representing the method to get.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="methodToFind"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="methodToFind"/> does not represent a method invocation.</exception>
+            <returns>If found, the <see cref="T:System.Reflection.MethodInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetProperty(System.Type,System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> of the first property found on <paramref name="type"/> with a name matching
+            the supplied <paramref name="property"/> value.
+            </summary>
+            <remarks>
+            <para>Only finds instance properties that are public and non public.</para>
+            <para>Property names are matched in a case insensitive culture invariant manner.</para>
+            </remarks>
+            <param name="type">The <see cref="T:System.Type"/> to return the property value from.</param>
+            <param name="property">The name of the property to find</param>
+            <returns>If found, the <see cref="T:System.Reflection.PropertyInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="type"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="property"/> is <seealso langkeyword="null">null</seealso> or <see cref="F:System.String.Empty"/>.</para>
+            </exception>
+            <returns>If found, the <see cref="T:System.Reflection.PropertyInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetProperty(System.Linq.Expressions.LambdaExpression)">
+            <summary>Gets the property represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller. Property return overloading is not allowed in the CLR therefore the return type is represented as an <seealso cref="T:System.Object"/>.</remarks>
+            <exception cref="T:System.ArgumentNullException"><paramref name="propertyToFind"/> is <see langkeyword="null">null</see>.</exception> 
+            <exception cref="T:System.ArgumentException"><paramref name="propertyToFind"/> does not represent a property accessor.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the Length property from the String type
+            PropertyInfo lengthProperty = Reflect.GetProperty((String x) => x.Length);
+            
+            //Example on how to get a specific overload of a property from an type; in this example the HttpSessionState[String] overload.
+            PropertyInfo overloadProperty = Reflect.GetProperty((HttpSessionState x) => x["string"]);
+            
+            //Example on how to get a static property from a type
+            PropertyInfo staticProperty = Reflect.GetProperty((HttpContext x) => HttpContext.Current);
+            ]]>
+            </code>
+            </example>
+            <returns>If found, the <see cref="T:System.Reflection.PropertyInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetProperty``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>Gets the property represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller. Property return overloading is not allowed in the CLR therefore the return type is represented as an <seealso cref="T:System.Object"/>.</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <exception cref="T:System.ArgumentNullException"><paramref name="propertyToFind"/> is <see langkeyword="null">null</see>.</exception> 
+            <exception cref="T:System.ArgumentException"><paramref name="propertyToFind"/> does not represent a property accessor.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the Length property from the String type
+            PropertyInfo lengthProperty = Reflect.GetProperty<String>(x => x.Length);
+            
+            //Example of using alternate syntax
+            PropertyInfo altSyntax = Reflect.GetProperty((String x) => x.Length);
+            
+            //Example on how to get a specific overload of a property from an type; in this example the HttpSessionState[String] overload.
+            PropertyInfo overloadProperty = Reflect.GetProperty<HttpSessionState>(x => x["string"]);
+            
+            //Example on how to get a static property from a type
+            PropertyInfo staticProperty = Reflect.GetProperty<HttpContext>(x => HttpContext.Current);
+            ]]>
+            </code>
+            </example>
+            <returns>If found, the <see cref="T:System.Reflection.PropertyInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetField(System.Type,System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.FieldInfo"/> of the first field found on <paramref name="type"/> with a name matching
+            the supplied <paramref name="field"/> value.
+            </summary>
+            <remarks>
+            <para>Only finds instance fields that are public and non public.</para>
+            <para>Field names are matched in a case insensitive culture invariant manner.</para>
+            </remarks>
+            <param name="type">The <see cref="T:System.Type"/> to return the field value from.</param>
+            <param name="field">The name of the field to find</param>
+            <returns>If found, the <see cref="T:System.Reflection.FieldInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="type"/> is <see langkeyword="null">null</see></para>
+            <para>-OR-</para>
+            <para><paramref name="field"/> is <seealso langkeyword="null">null</seealso> or <see cref="F:System.String.Empty"/>.</para>
+            </exception>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetField(System.Linq.Expressions.LambdaExpression)">
+            <summary>Gets the field represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller. As any field type can be represented as an <seealso cref="T:System.Object"/> type the supplied lambda is defined as returning that type.</remarks>
+            <exception cref="T:System.ArgumentNullException"><paramref name="fieldToFind"/> is <see langkeyword="null">null</see>.</exception> 
+            <exception cref="T:System.ArgumentException"><paramref name="fieldToFind"/> does not represent a field reference.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the Length property from the String type
+            FieldInfo lengthField = Reflect.GetField((String x) => x.Empty);
+            
+            //Example on how to get a static field from a type
+            FieldInfo staticField = Reflect.GetField((Guid x) => Guid.Empty);
+            ]]>
+            </code>
+            </example>
+            <param name="fieldToFind">The expression representing the field to find.</param>
+            <returns>If found, the <see cref="T:System.Reflection.FieldInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.Reflect.GetField``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>Gets the field represented by the lambda expression.</summary>
+            <remarks>Currently this only supports members visible to the caller. As any field type can be represented as an <seealso cref="T:System.Object"/> type the supplied lambda is defined as returning that type.</remarks>
+            <typeparam name="TReflectType">The <see cref="T:System.Type"/> to reflect.</typeparam>
+            <exception cref="T:System.ArgumentNullException"><paramref name="fieldToFind"/> is <see langkeyword="null">null</see>.</exception> 
+            <exception cref="T:System.ArgumentException"><paramref name="fieldToFind"/> does not represent a field reference.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            //Example to get the Length property from the String type
+            FieldInfo lengthField = Reflect.GetField<String>(x => x.Empty);
+            
+            //Example of using alternate syntax
+            FieldInfo altSyntax = Reflect.GetField((String x) => x.Empty);
+            
+            //Example on how to get a static field from a type
+            FieldInfo staticField = Reflect<Guid>.GetField(x => Guid.Empty);
+            ]]>
+            </code>
+            </example>
+            <param name="fieldToFind">The expression representing the field to find.</param>
+            <returns>If found, the <see cref="T:System.Reflection.FieldInfo"/>; otherwise <see langkeyword="null">null</see>.</returns>
+        </member>
+        <member name="T:Mongoose.Reflection.MemberInfoExtensions">
+            <summary>
+            Extension methods to the <see cref="T:System.Reflection.MemberInfo"/> subtypes.
+            </summary>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.IsDeclaredOn(System.Reflection.MemberInfo,System.Type)">
+            <summary>
+            Indicates if the supplied <paramref name="member"/> is declared on or by a supertype of <paramref name="type"/>.
+            </summary>
+            <param name="member">The <see cref="T:System.Reflection.MemberInfo"/> to check <see cref="P:System.Reflection.MemberInfo.DeclaringType">declaring type</see> on.</param>
+            <param name="type">The <see cref="T:System.Type"/> to check against.</param>
+            <returns><see langkeyword="true">true</see> if declare on or by a supertype of <paramref name="type"/>; otherwise <see langkeyword="false">false</see>.</returns>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.ValueOf``1(System.Reflection.PropertyInfo)">
+            <summary>
+            Gets the value of <paramref name="property"/> cast as <typeparamref name="TReturn"/>.
+            </summary>
+            <typeparam name="TReturn">The type to cast the returned value as.</typeparam>
+            <param name="property">The property to return the value of.</param>
+            <returns>The value expressed as type <typeparamref name="TReturn"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="property"/> is <seealso langkeyword="null">null</seealso></exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="property"/> is not static.</exception>
+            <exception cref="T:System.InvalidCastException">The value of property does is not able to be cast to <typeparamref name="TReturn"/>.</exception>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.ValueOf``1(System.Reflection.PropertyInfo,System.Object)">
+            <summary>
+            Gets the value of <paramref name="property"/> found on <paramref name="instance"/> cast as <typeparamref name="TReturn"/>.
+            </summary>
+            <typeparam name="TReturn">The type to cast the returned value as.</typeparam>
+            <param name="instance">The object to return the property value from.</param>
+            <param name="property">The property to return the value of.</param>
+            <returns>The value expressed as type <typeparamref name="TReturn"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="property"/> is <seealso langkeyword="null">null</seealso></para>
+            <para>-OR-</para>
+            <para><paramref name="instance"/> is <see langkeyword="null">null</see></para>
+            </exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="property"/> does not access a property declared on <paramref name="instance"/>.</exception>
+            <exception cref="T:System.InvalidCastException">The value of property does is not able to be cast to <typeparamref name="TReturn"/>.</exception>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.ValueOf``1(System.Reflection.FieldInfo)">
+            <summary>
+            Gets the value of <paramref name="field"/> cast as <typeparamref name="TReturn"/>.
+            </summary>
+            <typeparam name="TReturn">The type to cast the returned value as.</typeparam>
+            <param name="field">The field to return the value of.</param>
+            <returns>The value expressed as type <typeparamref name="TReturn"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="field"/> is <seealso langkeyword="null">null</seealso></exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="field"/> is not static.</exception>
+            <exception cref="T:System.InvalidCastException">The value of field does is not able to be cast to <typeparamref name="TReturn"/>.</exception>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.ValueOf``1(System.Reflection.FieldInfo,System.Object)">
+            <summary>
+            Gets the value of <paramref name="field"/> found on <paramref name="instance"/> cast as <typeparamref name="TReturn"/>.
+            </summary>
+            <typeparam name="TReturn">The type to cast the returned value as.</typeparam>
+            <param name="instance">The object to return the field value from.</param>
+            <param name="field">The field to return the value of.</param>
+            <returns>The value expressed as type <typeparamref name="TReturn"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="field"/> is <seealso langkeyword="null">null</seealso></para>
+            <para>-OR-</para>
+            <para><paramref name="instance"/> is <see langkeyword="null">null</see></para>
+            </exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="field"/> does not access a field declared on <paramref name="instance"/>.</exception>
+            <exception cref="T:System.InvalidCastException">The value of field does is not able to be cast to <typeparamref name="TReturn"/>.</exception>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.Invoke``1(System.Reflection.MethodBase,System.Object[])">
+            <summary>
+            Provides type safe invocation of a supplied <paramref name="method"/>.
+            </summary>
+            <typeparam name="TReturn">The type to cast the returned value as.</typeparam>
+            <param name="method">The method to invoke and return the value of.</param>
+            <param name="parameters">The parameters to pass to the method.</param>
+            <returns>The result expressed as type <typeparamref name="TReturn"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="method"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.Reflection.TargetException">The method is not static.</exception>
+            <exception cref="T:System.ArgumentException">The elements of the <paramref name="parameters"/> array do not match the signature of the method.</exception>
+            <exception cref="T:System.Reflection.TargetParameterCountException">The <paramref name="parameters"/> array does not have the correct number of arguments.</exception>
+            <exception cref="T:System.InvalidOperationException">The type that declares the method is an open generic type. That is, the <see cref="P:System.Type.ContainsGenericParameters"/> property returns <see langkeyword="true">true</see> for the declaring type.</exception>
+            <exception cref="T:System.InvalidCastException">The value of field does is not able to be cast to <typeparamref name="TReturn"/>.</exception>
+        </member>
+        <member name="M:Mongoose.Reflection.MemberInfoExtensions.Invoke``1(System.Reflection.MethodBase,System.Object,System.Object[])">
+            <summary>
+            Provides type safe invocation of a supplied <paramref name="method"/>.
+            </summary>
+            <typeparam name="TReturn">The type to cast the returned value as.</typeparam>
+            <param name="method">The method to invoke and return the value of.</param>
+            <param name="instance">The object to return the property value from.</param>
+            <param name="parameters">The parameters to pass to the method.</param>
+            <returns>The result expressed as type <typeparamref name="TReturn"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="method"/> is <see langkeyword="null">null</see>.</exception>
+            <exception cref="T:System.Reflection.TargetException">The method is not static and <paramref name="instance"/> is <seealso langkeyword="null">null</seealso>.</exception>
+            <exception cref="T:System.ArgumentException">The elements of the <paramref name="parameters"/> array do not match the signature of the method.</exception>
+            <exception cref="T:System.Reflection.TargetParameterCountException">The <paramref name="parameters"/> array does not have the correct number of arguments.</exception>
+            <exception cref="T:System.InvalidOperationException">The type that declares the method is an open generic type. That is, the <see cref="P:System.Type.ContainsGenericParameters"/> property returns <see langkeyword="true">true</see> for the declaring type.</exception>
+            <exception cref="T:System.InvalidCastException">The value of field does is not able to be cast to <typeparamref name="TReturn"/>.</exception>
+            <exception cref="T:System.InvalidOperationException"><paramref name="method"/> does not reference a method declared on <paramref name="instance"/>.</exception>
+        </member>
+    </members>
+</doc>
