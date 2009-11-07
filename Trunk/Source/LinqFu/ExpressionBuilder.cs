@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace LinqFu
@@ -8,6 +9,54 @@ namespace LinqFu
     /// </summary>
     public class ExpressionBuilder
     {
+        private static Expression Clone(Expression expression)
+        {
+            Expression expressionReturn = null;
+
+            var expressionType = expression.GetType();
+            if (expressionType == typeof(ConstantExpression))
+            {
+                expressionReturn = Clone((ConstantExpression) expression);
+            }
+            else if (expressionType == typeof(UnaryExpression))
+            {
+                expressionReturn = Clone((UnaryExpression) expression);
+            }
+
+            if (expressionReturn == null) throw new NotSupportedException(String.Format(null, "The supplied expression is not supported '{0}'", expression.GetType().FullName));
+            return expressionReturn;
+        }
+
+        public static UnaryExpression Clone(UnaryExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var expressionReturn = Expression.MakeUnary(ExpressionType.Lambda, expression.Operand, expression.Type);
+            return expressionReturn;
+        }
+
+        public static ConstantExpression Clone(ConstantExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var expressionReturn = Expression.Constant(expression.Value);
+            return expressionReturn;
+        }
+
+        public static MethodCallExpression Clone(MethodCallExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var arguments = new List<Expression>(expression.Arguments.Count);
+            foreach (var argument in expression.Arguments)
+            {
+                var clone = Clone(argument);
+                arguments.Add(clone);
+            }
+            var expressionReturn = Expression.Call(expression.Method, arguments.ToArray());
+            return expressionReturn;
+        }
+
         /// <summary>
         /// Converts the supplied <paramref name="expression"/> from <typeparamref name="TPrime"/> to <typeparamref name="TTheta"/>.
         /// </summary>
