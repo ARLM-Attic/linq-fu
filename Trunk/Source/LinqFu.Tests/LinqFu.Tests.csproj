@@ -74,7 +74,7 @@
     <Compile Include="Data\IProduct.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductByIdQuery.cs" />
-    <Compile Include="ExpressionBuilder.cs">
+    <Compile Include="Research Tests.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
