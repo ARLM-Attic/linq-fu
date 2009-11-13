@@ -22,6 +22,10 @@ namespace LinqFu
             {
                 expressionReturn = Clone((UnaryExpression) expression);
             }
+            else if (expressionType == typeof(BinaryExpression))
+            {
+                expressionReturn = Clone((BinaryExpression) expression);
+            }
 
             if (expressionReturn == null) throw new NotSupportedException(String.Format(null, "The supplied expression is not supported '{0}'", expression.GetType().FullName));
             return expressionReturn;
@@ -31,7 +35,7 @@ namespace LinqFu
         {
             if (expression == null) throw new ArgumentNullException("expression");
 
-            var expressionReturn = Expression.MakeUnary(ExpressionType.Lambda, expression.Operand, expression.Type);
+            var expressionReturn = Expression.MakeUnary(expression.NodeType, expression.Operand, expression.Type);
             return expressionReturn;
         }
 
@@ -55,6 +59,17 @@ namespace LinqFu
             }
             var expressionReturn = Expression.Call(expression.Method, arguments.ToArray());
             return expressionReturn;
+        }
+
+        public static BinaryExpression Clone(BinaryExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            Expression left = Clone(expression.Left);
+            Expression right = Clone(expression.Right);
+            var method = expression.Method;
+
+            return null;
         }
 
         /// <summary>
