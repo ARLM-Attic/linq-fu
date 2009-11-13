@@ -1,23 +1,17 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Windows.Forms;
-using ExpressionVisualizer;
 using LinqFu.Tests.Data;
-using Microsoft.VisualStudio.DebuggerVisualizers;
 using NUnit.Framework;
 
 namespace LinqFu.Tests
 {
     [TestFixture()]
-    public class ExpressionBuilderTests : Form
+    public class ExpressionBuilderTests
     {
-        private void RenderExpression(Expression expression)
+        private static void RenderExpression(Expression expression)
         {
-            VisualizerDevelopmentHost host = new VisualizerDevelopmentHost(expression,
-                                                 typeof(ExpressionTreeVisualizer),
-                                                 typeof(ExpressionTreeVisualizerObjectSource));
-            host.ShowVisualizer(this);
+            ExpressionWindow.RenderExpression(expression);
         }
 
         [Test()]
@@ -52,7 +46,7 @@ namespace LinqFu.Tests
                         select p).Expression;
             var input = ((UnaryExpression) expressionPrime.Arguments.Last()).Operand;
             var expressionTheta = ExpressionBuilder.Clone(expressionPrime);
-            this.RenderExpression(expressionTheta);
+            RenderExpression(expressionTheta);
         }
     }
 }
