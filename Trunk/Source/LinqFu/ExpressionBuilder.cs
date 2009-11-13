@@ -26,6 +26,14 @@ namespace LinqFu
             {
                 expressionReturn = Clone((BinaryExpression) expression);
             }
+            else if (expressionType == typeof(ConstantExpression))
+            {
+                expressionReturn = Clone((ConstantExpression) expression);
+            }
+            else if (expressionType.IsGenericType && expressionType.GetGenericTypeDefinition() == typeof(Expression<>))
+            {
+                expressionReturn = expression;
+            }
 
             if (expressionReturn == null) throw new NotSupportedException(String.Format(null, "The supplied expression is not supported '{0}'", expression.GetType().FullName));
             return expressionReturn;
@@ -35,7 +43,8 @@ namespace LinqFu
         {
             if (expression == null) throw new ArgumentNullException("expression");
 
-            var expressionReturn = Expression.MakeUnary(expression.NodeType, expression.Operand, expression.Type);
+            var innerExpression = Clone(expression.Operand);
+            var expressionReturn = Expression.MakeUnary(expression.NodeType, innerExpression, expression.Type);
             return expressionReturn;
         }
 
