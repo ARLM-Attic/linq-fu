@@ -45,7 +45,7 @@ namespace LinqFu.Tests
         }
 
         [Test()]
-        public void ConvertQuery()
+        public void CloneQuery()
         {
             var context = new AdventureWorksDataContext();
             var expressionPrime = (MethodCallExpression)(from p in context.Products
