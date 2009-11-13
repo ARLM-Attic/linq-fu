@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
@@ -49,7 +48,7 @@ namespace LinqFu.Tests
         {
             var context = new AdventureWorksDataContext();
             var expressionPrime = (MethodCallExpression)(from p in context.Products
-                        where p.ProductID == 1
+                        where p.ProductID >= 0
                         select p).Expression;
             var input = ((UnaryExpression) expressionPrime.Arguments.Last()).Operand;
             var expressionTheta = ExpressionBuilder.Clone(expressionPrime);
