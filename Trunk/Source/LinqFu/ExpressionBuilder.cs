@@ -208,6 +208,23 @@ namespace LinqFu
         }
 
         /// <summary>
+        /// Performs a conversion of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <typeparam name="TFrom">The type to convert from.</typeparam>
+        /// <typeparam name="TTo">The type to convert to.</typeparam>
+        /// <param name="expression">The <see cref="UnaryExpression"/> type to perform a type conversion clone on.</param>
+        /// <returns>A conversion of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        public static UnaryExpression Convert<TFrom, TTo>(UnaryExpression expression) where TTo : TFrom
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var innerExpression = Clone(expression.Operand);
+            var expressionReturn = Expression.MakeUnary(expression.NodeType, innerExpression, expression.Type);
+            return expressionReturn;
+        }
+
+        /// <summary>
         /// Performs a deep clone of the supplied <paramref name="expression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="ConstantExpression"/> type to deep clone.</param>
