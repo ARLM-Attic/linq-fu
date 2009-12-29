@@ -38,7 +38,7 @@ namespace LinqFu
     /// <summary>
     /// The main entry point into the LinqFu system.
     /// </summary>
-    public class ExpressionBuilder
+    public class ExpressionBuilder : IExpressionVisitor
     {
         /// <summary>
         /// A dispatch method to determine which one of the overloads should be used based on the concrete type of <paramref name="expression"/>.
