@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EvaluatingExpressionTreeVisitor.cs" />
+    <Compile Include="CloningExpressionVistor.cs" />
     <Compile Include="ExpressionBuilder.cs" />
     <Compile Include="ExpressionVisitorBase.cs" />
     <Compile Include="IExpressionVisitor.cs" />
