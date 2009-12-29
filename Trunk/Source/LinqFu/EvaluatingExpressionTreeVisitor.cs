@@ -49,7 +49,90 @@ namespace LinqFu
         /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> is not supported by this method.</exception>
         public Expression Visit(Expression expression)
         {
-            throw new NotImplementedException();
+            if (expression == null) return null;
+
+            Expression expressionReturn;
+
+            var nodeType = expression.NodeType;
+            switch (nodeType)
+            {
+                case ExpressionType.Negate:
+                case ExpressionType.NegateChecked:
+                case ExpressionType.Not:
+                case ExpressionType.Convert:
+                case ExpressionType.ConvertChecked:
+                case ExpressionType.ArrayLength:
+                case ExpressionType.Quote:
+                case ExpressionType.TypeAs:
+                    expressionReturn = this.Visit((UnaryExpression)expression);
+                    break;
+                case ExpressionType.Add:
+                case ExpressionType.AddChecked:
+                case ExpressionType.Subtract:
+                case ExpressionType.SubtractChecked:
+                case ExpressionType.Multiply:
+                case ExpressionType.MultiplyChecked:
+                case ExpressionType.Divide:
+                case ExpressionType.Modulo:
+                case ExpressionType.And:
+                case ExpressionType.AndAlso:
+                case ExpressionType.Or:
+                case ExpressionType.OrElse:
+                case ExpressionType.LessThan:
+                case ExpressionType.LessThanOrEqual:
+                case ExpressionType.GreaterThan:
+                case ExpressionType.GreaterThanOrEqual:
+                case ExpressionType.Equal:
+                case ExpressionType.NotEqual:
+                case ExpressionType.Coalesce:
+                case ExpressionType.ArrayIndex:
+                case ExpressionType.RightShift:
+                case ExpressionType.LeftShift:
+                case ExpressionType.ExclusiveOr:
+                    expressionReturn = this.Visit((BinaryExpression)expression);
+                    break;
+                case ExpressionType.TypeIs:
+                    expressionReturn = this.Visit((TypeBinaryExpression)expression);
+                    break;
+                case ExpressionType.Conditional:
+                    expressionReturn = this.Visit((ConditionalExpression)expression);
+                    break;
+                case ExpressionType.Constant:
+                    expressionReturn = this.Visit((ConstantExpression)expression);
+                    break;
+                case ExpressionType.Parameter:
+                    expressionReturn = this.Visit((ParameterExpression)expression);
+                    break;
+                case ExpressionType.MemberAccess:
+                    expressionReturn = this.Visit((MemberExpression)expression);
+                    break;
+                case ExpressionType.Call:
+                    expressionReturn = this.Visit((MethodCallExpression)expression);
+                    break;
+                case ExpressionType.Lambda:
+                    expressionReturn = this.Visit((LambdaExpression)expression);
+                    break;
+                case ExpressionType.New:
+                    expressionReturn = this.Visit((NewExpression)expression);
+                    break;
+                case ExpressionType.NewArrayInit:
+                case ExpressionType.NewArrayBounds:
+                    expressionReturn = this.Visit((NewArrayExpression)expression);
+                    break;
+                case ExpressionType.Invoke:
+                    expressionReturn = this.Visit((InvocationExpression)expression);
+                    break;
+                case ExpressionType.MemberInit:
+                    expressionReturn = this.Visit((MemberInitExpression)expression);
+                    break;
+                case ExpressionType.ListInit:
+                    expressionReturn = this.Visit((ListInitExpression)expression);
+                    break;
+                default:
+                    throw new NotSupportedException(String.Format(null, "The supplied expression is not supported '{0}'", expression.GetType().FullName));
+            }
+
+            return expressionReturn;
         }
 
         /// <summary>
@@ -60,7 +143,30 @@ namespace LinqFu
         /// <exception cref="NotSupportedException">The supplied <paramref name="binding"/> is not supported by this method.</exception>
         public MemberBinding Visit(MemberBinding binding)
         {
-            throw new NotImplementedException();
+            MemberBinding bindingReturn;
+
+            switch (binding.BindingType)
+            {
+                case MemberBindingType.Assignment:
+                    {
+                        bindingReturn = this.Visit((MemberAssignment)binding);
+                        break;
+                    }
+                case MemberBindingType.MemberBinding:
+                    {
+                        bindingReturn = this.Visit((MemberMemberBinding)binding);
+                        break;
+                    }
+                case MemberBindingType.ListBinding:
+                    {
+                        bindingReturn = this.Visit((MemberListBinding)binding);
+                        break;
+                    }
+                default:
+                    throw new NotSupportedException(String.Format("Unhandled binding type '{0}'", binding.BindingType));
+            }
+
+            return bindingReturn;
         }
 
         /// <summary>
