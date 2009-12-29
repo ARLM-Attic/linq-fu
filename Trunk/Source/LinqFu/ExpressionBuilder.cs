@@ -44,47 +44,209 @@ namespace LinqFu
         /// A dispatch method to determine which one of the overloads should be used based on the concrete type of <paramref name="expression"/>.
         /// </summary>
         /// <param name="expression">The <see cref="Expression"/> type to deep clone.</param>
-        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/> or null if <paramref name="expression"/> is null.</returns>
         /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> is not supported by this method.</exception>
         private static Expression Clone(Expression expression)
         {
-            Expression expressionReturn = null;
+            if (expression == null) return null;
 
-            var expressionType = expression.GetType();
-            if (expressionType == typeof(ConstantExpression))
+            Expression expressionReturn;
+
+            var nodeType = expression.NodeType;
+            switch (nodeType)
             {
-                expressionReturn = Clone((ConstantExpression) expression);
-            }
-            else if (expressionType == typeof(UnaryExpression))
-            {
-                expressionReturn = Clone((UnaryExpression) expression);
-            }
-            else if (expressionType == typeof(BinaryExpression))
-            {
-                expressionReturn = Clone((BinaryExpression) expression);
-            }
-            else if (expressionType == typeof(ConstantExpression))
-            {
-                expressionReturn = Clone((ConstantExpression) expression);
-            }
-            else if (expressionType == typeof(ParameterExpression))
-            {
-                expressionReturn = expression;
-            }
-            else if (expressionType == typeof(MemberExpression))
-            {
-                expressionReturn = Clone((MemberExpression) expression);
-            }
-            else if (expressionType == typeof(ConditionalExpression))
-            {
-                expressionReturn = Clone((ConditionalExpression) expression);
-            }
-            else if (expressionType.IsGenericType && expressionType.GetGenericTypeDefinition() == typeof(Expression<>))
-            {
-                expressionReturn = Clone((LambdaExpression)expression);
+                case ExpressionType.Negate:
+                case ExpressionType.NegateChecked:
+                case ExpressionType.Not:
+                case ExpressionType.Convert:
+                case ExpressionType.ConvertChecked:
+                case ExpressionType.ArrayLength:
+                case ExpressionType.Quote:
+                case ExpressionType.TypeAs:
+                    expressionReturn = Clone((UnaryExpression)expression);
+                    break;
+                case ExpressionType.Add:
+                case ExpressionType.AddChecked:
+                case ExpressionType.Subtract:
+                case ExpressionType.SubtractChecked:
+                case ExpressionType.Multiply:
+                case ExpressionType.MultiplyChecked:
+                case ExpressionType.Divide:
+                case ExpressionType.Modulo:
+                case ExpressionType.And:
+                case ExpressionType.AndAlso:
+                case ExpressionType.Or:
+                case ExpressionType.OrElse:
+                case ExpressionType.LessThan:
+                case ExpressionType.LessThanOrEqual:
+                case ExpressionType.GreaterThan:
+                case ExpressionType.GreaterThanOrEqual:
+                case ExpressionType.Equal:
+                case ExpressionType.NotEqual:
+                case ExpressionType.Coalesce:
+                case ExpressionType.ArrayIndex:
+                case ExpressionType.RightShift:
+                case ExpressionType.LeftShift:
+                case ExpressionType.ExclusiveOr:
+                    expressionReturn = Clone((BinaryExpression)expression);
+                    break;
+                case ExpressionType.TypeIs:
+                    expressionReturn = Clone((TypeBinaryExpression)expression);
+                    break;
+                case ExpressionType.Conditional:
+                    expressionReturn = Clone((ConditionalExpression)expression);
+                    break;
+                case ExpressionType.Constant:
+                    expressionReturn = Clone((ConstantExpression)expression);
+                    break;
+                case ExpressionType.Parameter:
+                    expressionReturn = Clone((ParameterExpression)expression);
+                    break;
+                case ExpressionType.MemberAccess:
+                    expressionReturn = Clone((MemberExpression)expression);
+                    break;
+                case ExpressionType.Call:
+                    expressionReturn = Clone((MethodCallExpression)expression);
+                    break;
+                case ExpressionType.Lambda:
+                    expressionReturn = Clone((LambdaExpression)expression);
+                    break;
+                case ExpressionType.New:
+                    expressionReturn = Clone((NewExpression)expression);
+                    break;
+                case ExpressionType.NewArrayInit:
+                case ExpressionType.NewArrayBounds:
+                    expressionReturn = Clone((NewArrayExpression)expression);
+                    break;
+                case ExpressionType.Invoke:
+                    expressionReturn = Clone((InvocationExpression)expression);
+                    break;
+                case ExpressionType.MemberInit:
+                    expressionReturn = Clone((MemberInitExpression)expression);
+                    break;
+                case ExpressionType.ListInit:
+                    expressionReturn = Clone((ListInitExpression)expression);
+                    break;
+                default:
+                    throw new NotSupportedException(String.Format(null, "The supplied expression is not supported '{0}'", expression.GetType().FullName));
             }
 
-            if (expressionReturn == null) throw new NotSupportedException(String.Format(null, "The supplied expression is not supported '{0}'", expression.GetType().FullName));
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// A dispatch method to determine which one of the overloads should be used based on the concrete type of <paramref name="binding"/>.
+        /// </summary>
+        /// <param name="binding">The <see cref="MemberBinding"/> to clone.</param>
+        /// <returns>A clone of the supplied <paramref name="binding"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="binding"/> is not supported by this method.</exception>
+        private static MemberBinding Clone(MemberBinding binding)
+        {
+            MemberBinding bindingReturn;
+
+            switch (binding.BindingType)
+            {
+                case MemberBindingType.Assignment:
+                    {
+                        bindingReturn = Clone((MemberAssignment) binding);
+                        break;
+                    }
+                case MemberBindingType.MemberBinding:
+                    {
+                        bindingReturn = Clone((MemberMemberBinding) binding);
+                        break;
+                    }
+                case MemberBindingType.ListBinding:
+                    {
+                        bindingReturn = Clone((MemberListBinding) binding);
+                        break;
+                    }
+                default:
+                    throw new NotSupportedException(String.Format("Unhandled binding type '{0}'", binding.BindingType));
+            }
+
+            return bindingReturn;
+        }
+
+        private static MemberAssignment Clone(MemberAssignment assignment)
+        {
+            Expression expression = Clone(assignment.Expression);
+            var bindingReturn = Expression.Bind(assignment.Member, expression);
+
+            return bindingReturn;
+        }
+
+        private static MemberMemberBinding Clone(MemberMemberBinding binding)
+        {
+            var bindings = new List<MemberBinding>(binding.Bindings.Count);
+            foreach (var item in binding.Bindings)
+            {
+                var clone = Clone(item);
+                bindings.Add(clone);
+            }
+
+            var bindingReturn = Expression.MemberBind(binding.Member, bindings);
+            return bindingReturn;
+        }
+
+        private static MemberListBinding Clone(MemberListBinding binding)
+        {
+            var initializers = new List<ElementInit>(binding.Initializers.Count);
+            foreach (var initializer in binding.Initializers)
+            {
+                var clone = Clone(initializer);
+                initializers.Add(clone);
+            }
+
+            var bindingReturn = Expression.ListBind(binding.Member, initializers);
+            return bindingReturn;
+        }
+
+        private static ElementInit Clone(ElementInit initializer)
+        {
+            var arguments = new List<Expression>(initializer.Arguments.Count);
+            foreach (var item in initializer.Arguments)
+            {
+                var clone = Clone(item);
+                arguments.Add(clone);
+            }
+
+            var initialierReturn = Expression.ElementInit(initializer.AddMethod, arguments);
+            return initialierReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="BinaryExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">
+        /// <para>The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</para>
+        /// <para>-OR-</para>
+        /// <para>The <see cref="Expression.NodeType"/> value is not supported.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static BinaryExpression Clone(BinaryExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            BinaryExpression expressionReturn;
+
+            Expression left = Clone(expression.Left);
+            Expression right = Clone(expression.Right);
+            Expression conversion = Clone((Expression)expression.Conversion);
+
+            if (expression.NodeType == ExpressionType.Coalesce && expression.Conversion != null)
+            {
+                expressionReturn = Expression.Coalesce(left, right, conversion as LambdaExpression);
+            }
+            else
+            {
+                expressionReturn = Expression.MakeBinary(expression.NodeType, left, right, expression.IsLiftedToNull, expression.Method);
+            }
+
+            if (expressionReturn == null) throw new NotSupportedException(String.Format("BinaryExpression NodeType of '{0}' is not supported", expression.NodeType));
+
             return expressionReturn;
         }
 
@@ -94,111 +256,17 @@ namespace LinqFu
         /// <param name="expression">The <see cref="BinaryExpression"/> type to deep clone.</param>
         /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
         /// <exception cref="NotSupportedException">
-        /// <para>The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method</para>
+        /// <para>The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</para>
         /// <para>-OR-</para>
         /// <para>The <see cref="Expression.NodeType"/> value is not supported.</para>
         /// </exception>
-        public static BinaryExpression Clone(BinaryExpression expression)
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static TypeBinaryExpression Clone(TypeBinaryExpression expression)
         {
             if (expression == null) throw new ArgumentNullException("expression");
 
-            BinaryExpression expressionReturn;
-
-            Expression left = Clone(expression.Left);
-            Expression right = Clone(expression.Right);
-            var method = expression.Method;
-
-            // Some temporary code here. This will all go away in Vistor Land when we refactor
-            switch (expression.NodeType)
-            {
-                case ExpressionType.Add:
-                    {
-                        expressionReturn = Expression.Add(left, right, method);
-                        break;
-                    }
-                case ExpressionType.And:
-                    {
-                        expressionReturn = Expression.And(left, right, method);
-                        break;
-                    }
-                case ExpressionType.AndAlso:
-                    {
-                        expressionReturn = Expression.And(left, right, method);
-                        break;
-                    }
-                case ExpressionType.AddChecked:
-                    {
-                        expressionReturn = Expression.AddChecked(left, right, method);
-                        break;
-                    }
-                case ExpressionType.Divide:
-                    {
-                        expressionReturn = Expression.Divide(left, right, method);
-                        break;
-                    }
-                case ExpressionType.Equal:
-                    {
-                        expressionReturn = Expression.Equal(left, right, expression.IsLiftedToNull, method);
-                        break;
-                    }
-                case ExpressionType.GreaterThan:
-                    {
-                        expressionReturn = Expression.GreaterThan(left, right, expression.IsLiftedToNull, method);
-                        break;
-                    }
-                case ExpressionType.GreaterThanOrEqual:
-                    {
-                        expressionReturn = Expression.GreaterThanOrEqual(left, right, expression.IsLiftedToNull, method);
-                        break;
-                    }
-                case ExpressionType.LessThan:
-                    {
-                        expressionReturn = Expression.LessThan(left, right, expression.IsLiftedToNull, method);
-                        break;
-                    }
-                case ExpressionType.LessThanOrEqual:
-                    {
-                        expressionReturn = Expression.LessThanOrEqual(left, right, expression.IsLiftedToNull, method);
-                        break;
-                    }
-                case ExpressionType.Modulo:
-                    {
-                        expressionReturn = Expression.Modulo(left, right, method);
-                        break;
-                    }
-                case ExpressionType.Multiply:
-                    {
-                        expressionReturn = Expression.Multiply(left, right, method);
-                        break;
-                    }
-                case ExpressionType.MultiplyChecked:
-                    {
-                        expressionReturn = Expression.MultiplyChecked(left, right, method);
-                        break;
-                    }
-                case ExpressionType.NotEqual:
-                    {
-                        expressionReturn = Expression.NotEqual(left, right, expression.IsLiftedToNull, method);
-                        break;
-                    }
-                case ExpressionType.Or:
-                    {
-                        expressionReturn = Expression.Or(left, right, method);
-                        break;
-                    }
-                case ExpressionType.OrElse:
-                    {
-                        expressionReturn = Expression.OrElse(left, right, method);
-                        break;
-                    }
-                case ExpressionType.Power:
-                    {
-                        expressionReturn = Expression.Power(left, right, method);
-                        break;
-                    }
-                default: throw new NotSupportedException(String.Format("BinaryExpression NodeType of '{0}' is not supported", expression.NodeType));
-            }
-            return expressionReturn;
+            var typeExpression = Clone(expression.Expression);
+            return Expression.TypeIs(typeExpression, expression.TypeOperand);
         }
 
         /// <summary>
@@ -207,10 +275,11 @@ namespace LinqFu
         /// <param name="expression">The <see cref="ConditionalExpression"/> type to deep clone.</param>
         /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
         /// <exception cref="NotSupportedException">
-        /// <para>The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method</para>
+        /// <para>The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</para>
         /// <para>-OR-</para>
         /// <para>The <see cref="Expression.NodeType"/> value is not supported.</para>
         /// </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
         public static ConditionalExpression Clone(ConditionalExpression expression)
         {
             if (expression == null) throw new ArgumentNullException("expression");
@@ -220,6 +289,231 @@ namespace LinqFu
             Expression test = Clone(expression.Test);
 
             var expressionReturn = Expression.Condition(test, ifTrue, ifFalse);
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="ConstantExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static ConstantExpression Clone(ConstantExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var expressionReturn = Expression.Constant(expression.Value);
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="ConstantExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static ParameterExpression Clone(ParameterExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var expressionReturn = Expression.Parameter(expression.Type, expression.Name);
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="MemberExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static MemberExpression Clone(MemberExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var expressionReturn = Expression.MakeMemberAccess(expression.Expression, expression.Member);
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="MemberExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static MemberInitExpression Clone(MemberInitExpression expression)
+        {
+            NewExpression newExpression = Clone(expression.NewExpression);
+
+            var bindings = new List<MemberBinding>(expression.Bindings.Count);
+            foreach (var item in expression.Bindings)
+            {
+                var clone = Clone(item);
+                bindings.Add(clone);
+            }
+
+            var expressionReturn = Expression.MemberInit(newExpression, bindings);
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="MethodCallExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static MethodCallExpression Clone(MethodCallExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var arguments = new List<Expression>(expression.Arguments.Count);
+            foreach (var argument in expression.Arguments)
+            {
+                var clone = Clone(argument);
+                arguments.Add(clone);
+            }
+            var expressionReturn = Expression.Call(expression.Object, expression.Method, arguments.ToArray());
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="LambdaExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static LambdaExpression Clone(LambdaExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var parameters = new List<ParameterExpression>(expression.Parameters.Count);
+            foreach (var parameter in expression.Parameters)
+            {
+                var clone = Clone(parameter);
+                parameters.Add(clone);
+            }
+
+            var delegateType = expression.Type;
+            var expressionBody = Clone(expression.Body);
+
+            var expressionReturn = Expression.Lambda(delegateType, expressionBody, parameters.ToArray());
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="LambdaExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static ListInitExpression Clone(ListInitExpression expression)
+        {
+            NewExpression newExpression = Clone(expression.NewExpression);
+
+            var initializers = new List<ElementInit>(expression.Initializers.Count);
+            foreach (var initializer in expression.Initializers)
+            {
+                var clone = Clone(initializer);
+                initializers.Add(clone);
+            }
+
+            var expressionReturn = Expression.ListInit(newExpression, initializers);
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="LambdaExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static NewExpression Clone(NewExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var arguments = new List<Expression>(expression.Arguments.Count);
+            foreach (var argument in expression.Arguments)
+            {
+                var clone = Clone(argument);
+                arguments.Add(clone);
+            }
+
+            NewExpression expressionReturn;
+            var constructor = expression.Constructor;
+            var members = expression.Members;
+
+            if (members == null)
+            {
+                expressionReturn = Expression.New(constructor, arguments);
+            }
+            else
+            {
+                expressionReturn = Expression.New(constructor, arguments, members);
+            }
+
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="LambdaExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static NewArrayExpression Clone(NewArrayExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var expressions = new List<Expression>(expression.Expressions.Count);
+            foreach (var item in expression.Expressions)
+            {
+                var clone = Clone(item);
+                expressions.Add(clone);
+            }
+
+            NewArrayExpression expressionReturn;
+
+            if (expression.NodeType == ExpressionType.NewArrayInit)
+            {
+                expressionReturn = Expression.NewArrayInit(expression.Type.GetElementType(), expressions);
+            }
+            else
+            {
+                expressionReturn = Expression.NewArrayBounds(expression.Type.GetElementType(), expressions);
+            }
+
+            return expressionReturn;
+        }
+
+        /// <summary>
+        /// Performs a deep clone of the supplied <paramref name="expression"/>.
+        /// </summary>
+        /// <param name="expression">The <see cref="LambdaExpression"/> type to deep clone.</param>
+        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
+        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="expression"/> is null.</exception>
+        public static InvocationExpression Clone(InvocationExpression expression)
+        {
+            if (expression == null) throw new ArgumentNullException("expression");
+
+            var arguments = new List<Expression>(expression.Arguments.Count);
+            foreach (var item in expression.Arguments)
+            {
+                var clone = Clone(item);
+                arguments.Add(clone);
+            }
+
+            var invocationExpression = Clone(expression.Expression);
+            var expressionReturn = Expression.Invoke(invocationExpression, arguments);
+
             return expressionReturn;
         }
 
@@ -252,78 +546,6 @@ namespace LinqFu
 
             var innerExpression = Clone(expression.Operand);
             var expressionReturn = Expression.MakeUnary(expression.NodeType, innerExpression, expression.Type);
-            return expressionReturn;
-        }
-
-        /// <summary>
-        /// Performs a deep clone of the supplied <paramref name="expression"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="ConstantExpression"/> type to deep clone.</param>
-        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
-        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
-        public static ConstantExpression Clone(ConstantExpression expression)
-        {
-            if (expression == null) throw new ArgumentNullException("expression");
-
-            var expressionReturn = Expression.Constant(expression.Value);
-            return expressionReturn;
-        }
-
-        /// <summary>
-        /// Performs a deep clone of the supplied <paramref name="expression"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="MethodCallExpression"/> type to deep clone.</param>
-        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
-        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
-        public static MethodCallExpression Clone(MethodCallExpression expression)
-        {
-            if (expression == null) throw new ArgumentNullException("expression");
-
-            var arguments = new List<Expression>(expression.Arguments.Count);
-            foreach (var argument in expression.Arguments)
-            {
-                var clone = Clone(argument);
-                arguments.Add(clone);
-            }
-            var expressionReturn = Expression.Call(expression.Method, arguments.ToArray());
-            return expressionReturn;
-        }
-
-        /// <summary>
-        /// Performs a deep clone of the supplied <paramref name="expression"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="LambdaExpression"/> type to deep clone.</param>
-        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
-        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
-        public static LambdaExpression Clone(LambdaExpression expression)
-        {
-            if (expression == null) throw new ArgumentNullException("expression");
-
-            var parameters = new List<ParameterExpression>(expression.Parameters.Count);
-            foreach (var parameter in expression.Parameters)
-            {
-                var clone = (ParameterExpression)Clone(parameter);
-                parameters.Add(clone);
-            }
-
-            var delegateType = expression.Type;
-            var expressionBody = Clone(expression.Body);
-
-            var expressionReturn = Expression.Lambda(delegateType, expressionBody, parameters.ToArray());
-            return expressionReturn;
-        }
-
-        /// <summary>
-        /// Performs a deep clone of the supplied <paramref name="expression"/>.
-        /// </summary>
-        /// <param name="expression">The <see cref="MemberExpression"/> type to deep clone.</param>
-        /// <returns>A deep clone of the supplied <paramref name="expression"/>.</returns>
-        /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> or one of it's inner expression nodes, is of a type that is not supported by this method.</exception>
-        public static MemberExpression Clone(MemberExpression expression)
-        {
-            if (expression == null) throw new ArgumentNullException("expression");
-
-            var expressionReturn = Expression.MakeMemberAccess(expression.Expression, expression.Member);
             return expressionReturn;
         }
 
