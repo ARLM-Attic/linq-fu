@@ -13,6 +13,7 @@ namespace LinqFu
         /// <summary>
         /// A dispatch method to determine which one of the overloads should be used based on the concrete type of <paramref name="expression"/>.
         /// </summary>
+        /// <remarks>This implementation will perform the "correct" invocation based on the actual supplied <see cref="Expression"/>.</remarks>
         /// <param name="expression">The <see cref="Expression"/> type to deep clone.</param>
         /// <returns>A deep clone of the supplied <paramref name="expression"/> or null if <paramref name="expression"/> is null.</returns>
         /// <exception cref="NotSupportedException">The supplied <paramref name="expression"/> is not supported by this method.</exception>
@@ -107,6 +108,7 @@ namespace LinqFu
         /// <summary>
         /// A dispatch method to determine which one of the overloads should be used based on the concrete type of <paramref name="binding"/>.
         /// </summary>
+        /// <remarks>This implementation will perform the "correct" invocation based on the actual supplied <see cref="MemberBinding"/>.</remarks>
         /// <param name="binding">The <see cref="MemberBinding"/> to clone.</param>
         /// <returns>A clone of the supplied <paramref name="binding"/>.</returns>
         /// <exception cref="NotSupportedException">The supplied <paramref name="binding"/> is not supported by this method.</exception>
