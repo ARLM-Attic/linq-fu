@@ -76,7 +76,7 @@ namespace LinqFu.Tests
                         where p.ProductID >= 0
                         select p).Expression;
             var input = ((UnaryExpression) expressionPrime.Arguments.Last()).Operand;
-            var expressionTheta = ExpressionBuilder.Clone(expressionPrime);
+            var expressionTheta = ExpressionBuilder.Visit(expressionPrime);
             RenderExpression(expressionTheta);
         }
     }
