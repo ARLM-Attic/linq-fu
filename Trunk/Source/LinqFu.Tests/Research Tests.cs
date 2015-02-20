@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #endregion
 
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -42,7 +43,8 @@ namespace LinqFu.Tests
     {
         private static void RenderExpression(Expression expression)
         {
-            ExpressionWindow.RenderExpression(expression);
+            Debugger.Break();
+            // assumes that you're using the expression visualizer - see external libraries folder
         }
 
         [Test()]
