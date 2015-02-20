@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libraries", "Exter
 		External Libraries\ExpressionTreeVisualizer.dll = External Libraries\ExpressionTreeVisualizer.dll
 		External Libraries\Mongoose.Reflection.dll = External Libraries\Mongoose.Reflection.dll
 		External Libraries\Mongoose.Reflection.xml = External Libraries\Mongoose.Reflection.xml
-		External Libraries\nunit.framework.dll = External Libraries\nunit.framework.dll
-		External Libraries\nunit.framework.xml = External Libraries\nunit.framework.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqFu", "LinqFu\LinqFu.csproj", "{3A94DE28-15D1-417E-844C-08A337EB3BE0}"
